@@ -2,23 +2,29 @@
 var initialLocations = [
 	{
 		title: 'Park Güell',
-		location: {lat: 41.414495, lng: 2.152695}
+		location: {lat: 41.414495, lng: 2.152695},
+		marker: true
 	},
 	{
 		title: 'La Pedrera',
-		location: {lat: 41.395247, lng: 2.161683}
+		location: {lat: 41.395247, lng: 2.161683},
+		marker: true
 	},
 	{
 		title: 'Universitat Autonoma de Barcelona',
-		location: {lat: 41.502218 , lng: 2.104217}
+		location: {lat: 41.502218 , lng: 2.104217},
+		marker: true
 	},
 	{
 		title: 'La Barceloneta',
-		location: {lat: 41.380894, lng: 2.189385}
+		location: {lat: 41.380894, lng: 2.189385},
+		marker: true
 	},
 	{
 		title: 'Font Màgica de Montjuïc',
-		location: {lat: 41.371182, lng: 2.151671}}
+		location: {lat: 41.371182, lng: 2.151671},
+		marker: true
+	}
 	];
 
 	// Each location on the List has two main properties that can be accessed -
