@@ -11,13 +11,18 @@ var initialLocations = [
 		marker: true
 	},
 	{
-		title: 'Universitat Autonoma de Barcelona',
-		location: {lat: 41.502218 , lng: 2.104217},
+		title: 'La Sagrada Família',
+		location: {lat: 41.40448, lng: 2.17573},
 		marker: true
 	},
 	{
 		title: 'La Barceloneta',
 		location: {lat: 41.380894, lng: 2.189385},
+		marker: true
+	},
+	{
+		title: 'Parc de la Ciutadella',
+		location: {lat: 41.38812, lng: 2.18602},
 		marker: true
 	},
 	{

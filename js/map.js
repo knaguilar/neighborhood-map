@@ -47,6 +47,7 @@ function populateInfoWindow(marker, infowindow){
 
 		infowindow.addListener('closeclick', function(){
 			infowindow.close();
+			marker.setAnimation(null);
 		});
 	}
 }
@@ -63,9 +64,5 @@ function toggleBounce(marker) {
 			}
 		}
 		marker.setAnimation(google.maps.Animation.BOUNCE);
-
-		// marker.addListener('mouseout', function(){
-		// 	marker.setAnimation(null);
-		// });
 	}
 }
