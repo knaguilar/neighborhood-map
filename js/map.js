@@ -57,7 +57,10 @@ function toggleBounce(marker) {
 		marker.setAnimation(null);
 	} else {
 		for (var i = 0; i < markers.length; i++) {
-			markers[i].setAnimation(null);
+			var mark = markers[i];
+			if(mark.getAnimation() !== null){
+				mark.setAnimation(null);
+			}
 		}
 		marker.setAnimation(google.maps.Animation.BOUNCE);
 
