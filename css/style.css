@@ -4,28 +4,37 @@ body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
+	background-color: #329CB2;
 }
 
 .container {
-	width: 100%;
-}
-
-#maps, .list-view {
-	width: 100%;
-}
-
-.list-view {
-	background-color: #329CB2;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-content: stretch;
 }
 
 .list-view > h2 {
 	background-color: #155865;
 	text-align: center;
 	margin-top: 0px;
-	padding: 5%;
+	padding: 2%;
 }
 
 .list-view > ul {
 	list-style-type: none;
 	padding-bottom: 5%;
+}
+
+.list-view > p {
+	padding-left: 3%;
+}
+
+#map {
+	top: 40%;
+	bottom: 0px;
+	height: 100%;
+	left: 1px;
+	position: absolute;
+	right: 0px;
 }

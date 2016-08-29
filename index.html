@@ -9,21 +9,24 @@
 <body>
 	<div class="container">
 		<!-- Attribution for filter: http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html -->
-		<div class="list-view">
-			<h2>Barcelona's Best Locations</h2>
-			<p>Filter: <input data-bind="value: filter, valueUpdate: 'afterkeydown'" /></p>
-			<ul data-bind="foreach: filteredLocations">
-				<li data-bind="text: title, click: $parent.setLocation"></li>
-			</ul>
-		</div>
-		<div id="map"></div>
+		<div class="row">
+			<div class="col-md-12 list-view">
+				<h2 class="col-md-12">Barcelona's Best Locations</h2>
+				<p class="col-md-12">Filter: <input data-bind="value: filter, valueUpdate: 'afterkeydown'" /></p>
+				<ul class="col-md-12" data-bind="foreach: filteredLocations">
+					<li data-bind="text: title, click: $parent.setLocation"></li>
+				</ul>
+			</div>
+			<div class="col-md-12" id="map"></div>
 	</div>
 
-	<!-- <script async defer
+	<script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAM0rIFcFcSkJHnBJ2bjeJQyhaQ0KO9VkM&v=3&callback=initMap">
-	</script> -->
+	</script>
 	<script src="js/lib/knockout-3.4.0.js"></script>
 	<script src="js/lib/jQuery.js"></script>
 	<script src="js/app.js"></script>
+	<script src="js/map.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 </body>
 </html>
