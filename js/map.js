@@ -8,7 +8,8 @@ function initMap() {
 		zoom: 13
 	});
 
-	 var bounds = new google.maps.LatLngBounds();
+	var largeInfoWindow = new google.maps.InfoWindow();
+	var bounds = new google.maps.LatLngBounds();
 
 	for (var i = 0; i < initialLocations.length; i++) {
 		var position = initialLocations[i].location;
@@ -18,9 +19,16 @@ function initMap() {
 			map: map,
 			position: position,
 			title: title,
-			animation: google.maps.Animation.DROP
+			animation: google.maps.Animation.DROP,
+			id: i
 	});
 		markers.push(marker);
+
+		//onclick event to open infoWindow
+		//Atribution: Udacity's Google Maps APIS Course
+		marker.addListener('click', function() {
+			populateInfoWindow(this, largeInfoWindow);
+		});
 
 		marker.addListener('click', function(){
 			toggleBounce(this);
@@ -31,14 +39,30 @@ function initMap() {
 	map.fitBounds(bounds);
 }
 
-function toggleBounce(marker) {
-  if (marker.getAnimation() !== null) {
-    marker.setAnimation(null);
-  } else {
-    marker.setAnimation(google.maps.Animation.BOUNCE);
+function populateInfoWindow(marker, infowindow){
+	if (infowindow.marker != marker) {
+		infowindow.marker = marker;
+		infowindow.setContent('<div>' + marker.title + '</div>');
+		infowindow.open(map, marker);
 
-    marker.addListener('mouseout', function(){
-			marker.setAnimation(null);
+		infowindow.addListener('closeclick', function(){
+			infowindow.close();
 		});
-  }
+	}
+}
+
+//bounce when location is clicked and stop when mouseout
+function toggleBounce(marker) {
+	if (marker.getAnimation() !== null) {
+		marker.setAnimation(null);
+	} else {
+		for (var i = 0; i < markers.length; i++) {
+			markers[i].setAnimation(null);
+		}
+		marker.setAnimation(google.maps.Animation.BOUNCE);
+
+		// marker.addListener('mouseout', function(){
+		// 	marker.setAnimation(null);
+		// });
+	}
 }
