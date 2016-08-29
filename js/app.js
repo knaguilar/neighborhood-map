@@ -10,10 +10,12 @@ var initialLocations = [
 	},
 	{
 		title: 'Universitat Autonoma de Barcelona',
-		location: {lat: 41.502218 , lng: 2.104217}},
+		location: {lat: 41.502218 , lng: 2.104217}
+	},
 	{
 		title: 'La Barceloneta',
-		location: {lat: 41.380894, lng: 2.189385}},
+		location: {lat: 41.380894, lng: 2.189385}
+	},
 	{
 		title: 'Font Màgica de Montjuïc',
 		location: {lat: 41.371182, lng: 2.151671}}
@@ -33,11 +35,26 @@ var initialLocations = [
 
 		this.locationList = ko.observableArray([]);
 
+		//the list that will appear when being filtered by a keyword
+		this.filter = ko.observable();
+
 		//looping through each item in initialLocations and
 		//adding it to the array
 		initialLocations.forEach(function(locationItem){
 			self.locationList.push(new Location(locationItem));
 		});
+
+		// Attribution for filter: http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html
+		this.filteredLocations = ko.computed(function() {
+			var filter = self.filter();
+		    if (!self.filter()) {
+		        return self.locationList();
+		    } else {
+		        return ko.utils.arrayFilter(self.locationList(), function(loc) {
+		            return loc.title().toLowerCase().startsWith(filter.toLowerCase());
+		        });
+		    }
+		}, self);
 
 		//initially sets the current location to the first item in
 		//locationList
@@ -47,8 +64,6 @@ var initialLocations = [
 		this.setLocation = function(clickedLocation) {
 			self.currentLocation(clickedLocation);
 		};
-
-
 	}
 
 	ko.applyBindings(new ViewModel());
