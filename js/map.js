@@ -22,7 +22,23 @@ function initMap() {
 	});
 		markers.push(marker);
 
+		marker.addListener('click', function(){
+			toggleBounce(this);
+		});
+
 		bounds.extend(markers[i].position);
 	}
 	map.fitBounds(bounds);
+}
+
+function toggleBounce(marker) {
+  if (marker.getAnimation() !== null) {
+    marker.setAnimation(null);
+  } else {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+
+    marker.addListener('mouseout', function(){
+			marker.setAnimation(null);
+		});
+  }
 }
