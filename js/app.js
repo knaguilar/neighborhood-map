@@ -35,8 +35,8 @@ var initialLocations = [
 	// Each location on the List has two main properties that can be accessed -
 	// title and location
 	var Location = function(data) {
-		this.title = ko.observable(data.title);
-		this.location = ko.observable(data.location);
+		this.title = data.title;
+		this.location = data.location;
 	}
 
 	//Where all the controlling takes palce
@@ -55,17 +55,73 @@ var initialLocations = [
 			self.locationList.push(new Location(locationItem));
 		});
 
+		var largeInfoWindow = new google.maps.InfoWindow();
+		var bounds = new google.maps.LatLngBounds();
+
+		self.locationList().forEach(function (location) {
+		    // define the marker
+		    var marker = new google.maps.Marker({
+		      map: map,
+		      position: location.location,
+		      title: location.title,
+		      animation: google.maps.Animation.DROP
+		    });
+
+		    location.marker = marker;
+
+
+			//onclick event to open infoWindow
+			//Atribution: Udacity's Google Maps APIS Course
+			location.marker.addListener('click', function() {
+				populateInfoWindow(this, largeInfoWindow);
+			});
+
+			location.marker.addListener('click', function(){
+				toggleBounce(this);
+			});
+
+			bounds.extend(location.marker.position);
+
+		});
+
+		map.fitBounds(bounds);
+
+
 		// Attribution for filter: http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html
 		this.filteredLocations = ko.computed(function() {
 			var filter = self.filter();
 		    if (!self.filter()) {
+		    	self.locationList().forEach(function (location) {
+		    		location.marker.setMap(map);
+		    	});
 		        return self.locationList();
 		    } else {
 		        return ko.utils.arrayFilter(self.locationList(), function(loc) {
-		            return loc.title().toLowerCase().startsWith(filter.toLowerCase());
+		    		if(loc.title.toLowerCase().startsWith(filter.toLowerCase())){
+		    			loc.marker.setMap(map);
+		    		}
+		    		else {
+		    			loc.marker.setMap(null);
+		    		}
+		            return loc.title.toLowerCase().startsWith(filter.toLowerCase());
 		        });
 		    }
 		}, self);
+
+		//bounce when location is clicked
+		function toggleBounce(marker) {
+			if (marker.getAnimation() !== null) {
+				marker.setAnimation(null);
+			} else {
+				for (var i = 0; i < self.locationList().length; i++) {
+					var mark = self.locationList()[i].marker;
+					if(mark.getAnimation() !== null){
+						mark.setAnimation(null);
+					}
+				}
+				marker.setAnimation(google.maps.Animation.BOUNCE);
+			}
+		}
 
 		//initially sets the current location to the first item in
 		//locationList
@@ -77,4 +133,29 @@ var initialLocations = [
 		};
 	}
 
-	ko.applyBindings(new ViewModel());
+// -------------------------------------------------------------------------------------
+	var map;
+		// var markers = [];
+
+		function initMap() {
+			// Constructor creates a new map - only center and zoom are required.
+			map = new google.maps.Map(document.getElementById('map'), {
+				center: {lat: 41.385064, lng: 2.173403},
+				zoom: 13
+			});
+
+			ko.applyBindings(new ViewModel());
+		}
+
+		function populateInfoWindow(marker, infowindow){
+			if (infowindow.marker != marker) {
+				infowindow.marker = marker;
+				infowindow.setContent('<div>' + marker.title + '</div>');
+				infowindow.open(map, marker);
+
+				infowindow.addListener('closeclick', function(){
+					infowindow.close();
+					marker.setAnimation(null);
+				});
+			}
+		}
