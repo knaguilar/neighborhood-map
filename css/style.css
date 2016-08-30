@@ -1,44 +1,76 @@
 html,
-body {
+body, .container {
 	font-family: Arial, sans-serif;
 	height: 100%;
+	width: 100%;
 	margin: 0;
 	padding: 0;
-	background-color: #329CB2;
 }
 
 .container {
 	display: flex;
 	flex-direction: column;
-	flex-wrap: wrap;
-	align-content: stretch;
+	background-color: #329cb2;
 }
 
-.list-view > h2 {
+h2 {
 	background-color: #155865;
 	text-align: center;
 	margin-top: 0px;
 	padding: 2%;
+	margin-bottom: 0px;
 }
 
 .list-view > ul {
 	list-style-type: none;
 	padding-bottom: 5%;
+	padding-left: 3px;
 }
 
-.list-view > p {
-	padding-left: 3%;
+.main {
+	position: relative;
+/*    padding-bottom: 75%; // This is the aspect ratio
+    height: 100%;*/
+    overflow: hidden;
+    height: 100%;
+}
+
+.main.moveRight {
+	left: 200px;
 }
 
 #map {
-	top: 40%;
+	top: 40px;
 	bottom: 0px;
-	max-height: 100%;
-	left: 1px;
+	height: 100%;
+	left: 0px;
 	position: absolute;
 	right: 0px;
 }
 
+
 .item:hover {
 	background-color: green;
+}
+
+/*for the hamburger menu*/
+#menu > img {
+	padding-left: 0px;
+	width: 40px;
+	height: 40px;
+}
+
+nav {
+  width: 200px;
+  position: absolute;
+  /* This trasform moves the drawer off canvas. */
+  -webkit-transform: translate(-200px, 0);
+  transform: translate(-200px, 0);
+  /* Optionally, we animate the drawer. */
+  transition: transform 0.3s ease;
+}
+
+nav.open {
+  -webkit-transform: translate(0, 0);
+  transform: translate(0, 0);
 }

@@ -197,3 +197,24 @@ var initialLocations = [
 			});
 		}
 	}
+//hamburger menu functionality from udacity's
+//responsive web design fundamentals
+
+	var menu = document.querySelector('#menu');
+    var main = document.querySelector('.main');
+    var drawer = document.querySelector('#drawer');
+    var mapView = document.querySelector('#map');
+
+	menu.addEventListener('click', function(e) {
+	  drawer.classList.toggle('open');
+	  mapView.classList.toggle('open');
+	  menu.classList.toggle('open');
+	  main.classList.toggle('moveRight');
+	  e.stopPropagation();
+	});
+
+	main.addEventListener('click', function() {
+        drawer.classList.remove('open');
+        mapView.classList.remove('open');
+	  	menu.classList.remove('open');
+      });
