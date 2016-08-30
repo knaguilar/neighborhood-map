@@ -129,6 +129,8 @@ var initialLocations = [
 
 		//this is where the location is set once it has been clicked on
 		this.setLocation = function(clickedLocation) {
+			toggleBounce(clickedLocation.marker);
+			populateInfoWindow(clickedLocation.marker, largeInfoWindow);
 			self.currentLocation(clickedLocation);
 		};
 	}
