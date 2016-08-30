@@ -26,7 +26,7 @@ var initialLocations = [
 		marker: true
 	},
 	{
-		title: 'Font Màgica de Montjuïc',
+		title: 'Magic Fountain of Montjuic',
 		location: {lat: 41.371182, lng: 2.151671},
 		marker: true
 	}
@@ -127,6 +127,7 @@ var initialLocations = [
 		//locationList
 		this.currentLocation = ko.observable(this.locationList()[0]);
 
+
 		//this is where the location is set once it has been clicked on
 		this.setLocation = function(clickedLocation) {
 			toggleBounce(clickedLocation.marker);
@@ -139,25 +140,46 @@ var initialLocations = [
 	var map;
 		// var markers = [];
 
-		function initMap() {
-			// Constructor creates a new map - only center and zoom are required.
-			map = new google.maps.Map(document.getElementById('map'), {
-				center: {lat: 41.385064, lng: 2.173403},
-				zoom: 13
+	function initMap() {
+		// Constructor creates a new map - only center and zoom are required.
+		map = new google.maps.Map(document.getElementById('map'), {
+			center: {lat: 41.385064, lng: 2.173403},
+			zoom: 13
+		});
+
+		ko.applyBindings(new ViewModel());
+	}
+
+	function populateInfoWindow(marker, infowindow){
+		if (infowindow.marker != marker) {
+			infowindow.marker = marker;
+			// infowindow.setContent('<div><h3>' + marker.title + '</h3>');
+
+			//Wikipedia API
+			var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.title + '&format=json&callback=wikiCallback';
+
+		    var wikiRequestTimeout = setTimeout(function(){
+		        infowindow.setContent("failed to get wikipedia resources");
+		    }, 400);
+
+		    $.ajax( {
+		    url: wikiUrl,
+		    dataType: 'jsonp'}).done(function(response){
+		        var articleList = response[1];
+		        for (var i = 0; i < articleList.length; i++) {
+		            articleStr = articleList[i];
+		            var url = 'https://www.wikipedia.org/wiki/' + articleStr;
+		            infowindow.setContent('<div><h3>' + marker.title + '</h3><p>Wiki Info: <a href="' + url + '">' + articleStr + '</a></p></div>');
+		        };
+
+		        clearTimeout(wikiRequestTimeout);
+		    });
+
+			infowindow.open(map, marker);
+
+			infowindow.addListener('closeclick', function(){
+				infowindow.close();
+				marker.setAnimation(null);
 			});
-
-			ko.applyBindings(new ViewModel());
 		}
-
-		function populateInfoWindow(marker, infowindow){
-			if (infowindow.marker != marker) {
-				infowindow.marker = marker;
-				infowindow.setContent('<div>' + marker.title + '</div>');
-				infowindow.open(map, marker);
-
-				infowindow.addListener('closeclick', function(){
-					infowindow.close();
-					marker.setAnimation(null);
-				});
-			}
-		}
+	}
