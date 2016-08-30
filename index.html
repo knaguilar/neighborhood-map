@@ -1,33 +1,39 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Welcome to Barcelona</title>
 	<link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 	<h2>Barcelona's Best Locations</h2>
 	<div class="container">
-			<nav id="drawer" class="list-view">
-				<p>Filter: <input data-bind="value: filter, valueUpdate: 'afterkeydown'" /></p>
-				<ul data-bind="foreach: filteredLocations">
-					<li class="item" data-bind="text: title, click: $parent.setLocation"></li>
-				</ul>
-			</nav>
-			<div class="main">
-				<a id="menu" href="#"> <img src="img/ham.svg"></a>
-				<div id="map"></div>
-				<div id="map-error"></div>
-			</div>
+		<nav id="drawer" class="list-view">
+			<p>Filter:
+				<input data-bind="value: filter, valueUpdate: 'afterkeydown'"
+				/>
+			</p>
+			<ul data-bind="foreach: filteredLocations">
+				<li class="item" data-bind="text: title, click: $parent.setLocation"></li>
+			</ul>
+		</nav>
+		<div class="main">
+			<a id="menu" href="#"> <img src="img/ham.svg">
+			</a>
+			<div id="map"></div>
+			<div id="map-error"></div>
+		</div>
 	</div>
 
-	<script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAM0rIFcFcSkJHnBJ2bjeJQyhaQ0KO9VkM&v=3&callback=initMap">
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAM0rIFcFcSkJHnBJ2bjeJQyhaQ0KO9VkM&v=3&callback=initMap">
 	</script>
 	<script src="js/lib/knockout-3.4.0.js"></script>
 	<script src="js/lib/jQuery.js"></script>
 	<script src="js/app.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 </body>
+
 </html>

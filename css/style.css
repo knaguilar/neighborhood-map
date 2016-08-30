@@ -13,6 +13,7 @@ body, .container {
 	background-color: #329cb2;
 }
 
+/*styles the h2*/
 h2 {
 	background-color: #155865;
 	text-align: center;
@@ -29,12 +30,12 @@ h2 {
 
 .main {
 	position: relative;
-/*    padding-bottom: 75%; // This is the aspect ratio
-    height: 100%;*/
-    overflow: hidden;
-    height: 100%;
+	overflow: hidden;
+	height: 100%;
 }
 
+/*moves its container to the right
+to make room for the filter*/
 .main.moveRight {
 	left: 200px;
 }
@@ -48,7 +49,7 @@ h2 {
 	right: 0px;
 }
 
-
+/*highlights the item being selcted*/
 .item:hover {
 	background-color: green;
 }
@@ -61,16 +62,16 @@ h2 {
 }
 
 nav {
-  width: 200px;
-  position: absolute;
+	width: 200px;
+	position: absolute;
   /* This trasform moves the drawer off canvas. */
-  -webkit-transform: translate(-200px, 0);
-  transform: translate(-200px, 0);
+	-webkit-transform: translate(-200px, 0);
+	transform: translate(-200px, 0);
   /* Optionally, we animate the drawer. */
-  transition: transform 0.3s ease;
+	transition: transform 0.3s ease;
 }
 
 nav.open {
-  -webkit-transform: translate(0, 0);
-  transform: translate(0, 0);
+	-webkit-transform: translate(0, 0);
+	transform: translate(0, 0);
 }
