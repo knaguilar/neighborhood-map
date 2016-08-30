@@ -13,7 +13,7 @@
 				<h2 class="col-md-12">Barcelona's Best Locations</h2>
 				<p class="col-md-12">Filter: <input data-bind="value: filter, valueUpdate: 'afterkeydown'" /></p>
 				<ul class="col-md-12" data-bind="foreach: filteredLocations">
-					<li class="item" data-bind="text: title, click: $parent.setLocation, css: { selectItem: $parent.currentLocation()}"></li>
+					<li class="item" data-bind="text: title, click: $parent.setLocation"></li>
 				</ul>
 			</div>
 			<div class="col-md-12" id="map"></div>

@@ -2,33 +2,27 @@
 var initialLocations = [
 	{
 		title: 'Park Güell',
-		location: {lat: 41.414495, lng: 2.152695},
-		marker: true
+		location: {lat: 41.414495, lng: 2.152695}
 	},
 	{
 		title: 'La Pedrera',
-		location: {lat: 41.395247, lng: 2.161683},
-		marker: true
+		location: {lat: 41.395247, lng: 2.161683}
 	},
 	{
 		title: 'La Sagrada Família',
-		location: {lat: 41.40448, lng: 2.17573},
-		marker: true
+		location: {lat: 41.40448, lng: 2.17573}
 	},
 	{
 		title: 'La Barceloneta',
-		location: {lat: 41.380894, lng: 2.189385},
-		marker: true
+		location: {lat: 41.380894, lng: 2.189385}
 	},
 	{
 		title: 'Parc de la Ciutadella',
-		location: {lat: 41.38812, lng: 2.18602},
-		marker: true
+		location: {lat: 41.38812, lng: 2.18602}
 	},
 	{
 		title: 'Magic Fountain of Montjuic',
-		location: {lat: 41.371182, lng: 2.151671},
-		marker: true
+		location: {lat: 41.371182, lng: 2.151671}
 	}
 	];
 
@@ -88,6 +82,7 @@ var initialLocations = [
 
 
 		// Attribution for filter: http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html
+		// Idea on how to organize it came from this blog with some modifications eg. display/hide markers
 		this.filteredLocations = ko.computed(function() {
 			var filter = self.filter();
 		    if (!self.filter()) {
@@ -146,6 +141,18 @@ var initialLocations = [
 			center: {lat: 41.385064, lng: 2.173403},
 			zoom: 13
 		});
+		//Attribution: http://stackoverflow.com/questions/8792676/center-google-maps-v3-on-browser-resize-responsive
+		//I used this to keep map centered during resizing window
+		var center;
+		function calculateCenter() {
+		  center = map.getCenter();
+		}
+		google.maps.event.addDomListener(map, 'idle', function() {
+		  calculateCenter();
+		});
+		google.maps.event.addDomListener(window, 'resize', function() {
+		  map.setCenter(center);
+		});
 
 		ko.applyBindings(new ViewModel());
 	}
@@ -153,9 +160,8 @@ var initialLocations = [
 	function populateInfoWindow(marker, infowindow){
 		if (infowindow.marker != marker) {
 			infowindow.marker = marker;
-			// infowindow.setContent('<div><h3>' + marker.title + '</h3>');
 
-			//Wikipedia API
+			//Wikipedia API - code idea taken from work done in the Intro to AJAX course
 			var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.title + '&format=json&callback=wikiCallback';
 
 		    var wikiRequestTimeout = setTimeout(function(){
