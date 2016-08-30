@@ -38,3 +38,7 @@ body {
 	position: absolute;
 	right: 0px;
 }
+
+.item:hover {
+	background-color: green;
+}

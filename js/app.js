@@ -133,14 +133,21 @@ var initialLocations = [
 
 // -------------------------------------------------------------------------------------
 	var map;
-		// var markers = [];
-
 	function initMap() {
-		// Constructor creates a new map - only center and zoom are required.
-		map = new google.maps.Map(document.getElementById('map'), {
+		//I got the try/catch idea from looking at the Udacity discussion forum and
+		//tweaked it to work with my own setup
+		try {
+        map = new google.maps.Map(document.getElementById('map'), {
 			center: {lat: 41.385064, lng: 2.173403},
 			zoom: 13
+
 		});
+    } catch (err) {
+        //when the api doesn't render a map, show the error message
+        $('#map').hide();
+        $('#map-error').html('<h2>Failed to retrieve Google Maps resources, please try again later.</h2>');
+      }
+
 		//Attribution: http://stackoverflow.com/questions/8792676/center-google-maps-v3-on-browser-resize-responsive
 		//I used this to keep map centered during resizing window
 		var center;
@@ -151,6 +158,7 @@ var initialLocations = [
 		  calculateCenter();
 		});
 		google.maps.event.addDomListener(window, 'resize', function() {
+			console.log("window has resized");
 		  map.setCenter(center);
 		});
 
@@ -166,7 +174,7 @@ var initialLocations = [
 
 		    var wikiRequestTimeout = setTimeout(function(){
 		        infowindow.setContent("failed to get wikipedia resources");
-		    }, 400);
+		    }, 800);
 
 		    $.ajax( {
 		    url: wikiUrl,
