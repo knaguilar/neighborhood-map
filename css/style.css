@@ -1,5 +1,6 @@
 html,
-body, .container {
+body,
+.container {
 	font-family: Arial, sans-serif;
 	height: 100%;
 	width: 100%;
@@ -40,7 +41,7 @@ to make room for the filter*/
 	left: 200px;
 }
 
-#map {
+.map-canvas {
 	top: 40px;
 	bottom: 0px;
 	height: 100%;
