@@ -203,7 +203,6 @@ function initMap() {
 	google.maps.event.addDomListener(
 		window, 'resize',
 		function() {
-			console.log("window has resized");
 			map.setCenter(center);
 		});
 
@@ -262,27 +261,14 @@ function populateInfoWindow(marker,
 //hamburger menu functionality from udacity's
 //responsive web design fundamentals
 
-var menu = document.querySelector(
-	'#menu');
 var main = document.querySelector(
 	'.main');
 var drawer = document.querySelector(
 	'#drawer');
-var mapView = document.querySelector(
-	'#map');
 
 //when the menu icon is clicked, the filter menu slides in
 //and the map/menu shift to the right
-menu.addEventListener('click', function(
-	e) {
+this.openMenu = function() {
 	drawer.classList.toggle('open');
 	main.classList.toggle('moveRight');
-	e.stopPropagation();
-});
-
-//when the main area is clicked, including the menu
-//the filter menu slides back out
-main.addEventListener('click', function() {
-	drawer.classList.remove('open');
-	main.classList.remove('moveRight');
-});
+};
