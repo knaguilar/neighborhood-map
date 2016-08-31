@@ -88,11 +88,6 @@ var ViewModel = function() {
 			function() {
 				populateInfoWindow(this,
 					largeInfoWindow);
-			});
-
-		location.marker.addListener(
-			'click',
-			function() {
 				toggleBounce(this);
 			});
 
