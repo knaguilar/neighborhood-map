@@ -20,7 +20,8 @@
 			</ul>
 		</nav>
 		<div class="main">
-			<a id="menu" data-bind="click: openMenu" href="#"> <img src="img/ham.svg" alt="menu toggle">
+			<a id="menu" data-bind="click: openMenu" href="#">
+				<img src="img/ham.svg" alt="menu toggle">
 			</a>
 			<div id="map" class="map-canvas"></div>
 			<div id="map-error"></div>
@@ -31,7 +32,8 @@
 	<script src="js/lib/jQuery.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAM0rIFcFcSkJHnBJ2bjeJQyhaQ0KO9VkM&v=3&callback=initMap" onerror="googleErrorHandler()">
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAM0rIFcFcSkJHnBJ2bjeJQyhaQ0KO9VkM&v=3&callback=initMap"
+	onerror="googleErrorHandler()">
 	</script>
 </body>
 

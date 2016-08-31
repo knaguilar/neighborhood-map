@@ -42,7 +42,7 @@ var initialLocations = [{
 var Location = function(data) {
 	this.title = data.title;
 	this.location = data.location;
-}
+};
 
 //Where all the controlling takes palce
 var ViewModel = function() {
@@ -82,6 +82,7 @@ var ViewModel = function() {
 
 
 		//onclick event to open infoWindow
+		//updated to also toggleBounce
 		//Atribution: Udacity's Google Maps APIS Course
 		location.marker.addListener(
 			'click',
@@ -104,6 +105,7 @@ var ViewModel = function() {
 	//if not input is given, displays all the locations and all the markers are set on the map
 	//if an input is given, it compares the input with the title of each location in locationList
 	//and also sets them on the map if they are true - this is after being placed in the locationList
+	//updated using indexOf rather than startsWith to make the filter less strict
 	this.filteredLocations = ko.computed(
 		function() {
 			var filter = self.filter();
@@ -123,7 +125,8 @@ var ViewModel = function() {
 							loc.marker.setMap(null);
 						}
 						return loc.title.toLowerCase()
-							.indexOf(filter.toLowerCase()) !== -1;
+							.indexOf(filter.toLowerCase()) !==
+							-1;
 					});
 			}
 		}, self);
@@ -162,37 +165,21 @@ var ViewModel = function() {
 		self.currentLocation(
 			clickedLocation);
 	};
-}
+};
 
 // -------------------------------------------------------------------------------------
 var map;
 
 function initMap() {
-	//I got the try/catch idea from looking at the Udacity discussion forum and
-	//tweaked it to work with my own setup
-	// try {
-	// 	map = new google.maps.Map(document.getElementById(
-	// 		'map'), {
-	// 		center: {
-	// 			lat: 41.385064,
-	// 			lng: 2.173403
-	// 		},
-	// 		zoom: 13
-
-	// 	});
-	// } catch (err) {
-	// 	//when the api doesn't render a map, show the error message
-	// 	$('#map').hide();
-	// 	$('#map-error').html(
-	// 		'<h2>Failed to retrieve Google Maps resources, please try again later.</h2>'
-	// 	);
-	// }
-
 	// Constructor creates a new map - only center and zoom are required.
-		map = new google.maps.Map(document.getElementById('map'), {
-			center: {lat: 41.385064, lng: 2.173403},
-			zoom: 13
-		});
+	map = new google.maps.Map(document.getElementById(
+		'map'), {
+		center: {
+			lat: 41.385064,
+			lng: 2.173403
+		},
+		zoom: 13
+	});
 
 	//Attribution: http://stackoverflow.com/questions/8792676/center-google-maps-v3-on-browser-resize-responsive
 	//I used this to keep map centered during resizing window
@@ -215,8 +202,11 @@ function initMap() {
 	ko.applyBindings(new ViewModel());
 }
 
+//error handling function that gets called when google maps api does not return successfully
 function googleErrorHandler() {
-		$('#map-error').html('<h2>Failed to retrieve Google Maps resources, please try again later.</h2>');
+	$('#map-error').html(
+		'<h2>Failed to retrieve Google Maps resources, please try again later.</h2>'
+	);
 }
 
 //this populates the infoWindow for each marker and also calls the wikipedia api to add more info
@@ -245,7 +235,7 @@ function populateInfoWindow(marker,
 		}).done(function(response) {
 			var articleList = response[1];
 			for (var i = 0; i < articleList.length; i++) {
-				articleStr = articleList[i];
+				var articleStr = articleList[i];
 				var url =
 					'https://www.wikipedia.org/wiki/' +
 					articleStr;
@@ -254,7 +244,7 @@ function populateInfoWindow(marker,
 					'</h3><p>Wiki Info: <a href="' +
 					url + '">' + articleStr +
 					'</a></p></div>');
-			};
+			}
 
 			clearTimeout(wikiRequestTimeout);
 		});
@@ -270,6 +260,7 @@ function populateInfoWindow(marker,
 }
 //hamburger menu functionality from udacity's
 //responsive web design fundamentals
+//updated to use knockout click binding
 
 var main = document.querySelector(
 	'.main');

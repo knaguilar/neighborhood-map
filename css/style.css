@@ -41,6 +41,7 @@ to make room for the filter*/
 	left: 200px;
 }
 
+/*added class to map rather than using id*/
 .map-canvas {
 	top: 40px;
 	bottom: 0px;
