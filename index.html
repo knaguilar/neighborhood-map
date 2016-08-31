@@ -13,8 +13,7 @@
 	<div class="container">
 		<nav id="drawer" class="list-view">
 			<p>Filter:
-				<input data-bind="value: filter, valueUpdate: 'afterkeydown'"
-				/>
+				<input data-bind="textInput: filter"/>
 			</p>
 			<ul data-bind="foreach: filteredLocations">
 				<li class="item" data-bind="text: title, click: $parent.setLocation"></li>

@@ -108,7 +108,7 @@ var ViewModel = function() {
 	//It takes in a filter input
 	//if not input is given, displays all the locations and all the markers are set on the map
 	//if an input is given, it compares the input with the title of each location in locationList
-	//and also sets them on the map if they are true - this is after being palced in the locationList
+	//and also sets them on the map if they are true - this is after being placed in the locationList
 	this.filteredLocations = ko.computed(
 		function() {
 			var filter = self.filter();
@@ -121,14 +121,14 @@ var ViewModel = function() {
 			} else {
 				return ko.utils.arrayFilter(self.locationList(),
 					function(loc) {
-						if (loc.title.toLowerCase().startsWith(
-								filter.toLowerCase())) {
+						if (loc.title.toLowerCase().indexOf(
+								filter.toLowerCase()) !== -1) {
 							loc.marker.setMap(map);
 						} else {
 							loc.marker.setMap(null);
 						}
 						return loc.title.toLowerCase()
-							.startsWith(filter.toLowerCase());
+							.indexOf(filter.toLowerCase()) !== -1;
 					});
 			}
 		}, self);
